@@ -1,9 +1,8 @@
 node 'node-puppet1' {
+  include stdlib
+  include java
+  include java_ks
   include elasticsearch
-}
-
-class { 'elasticsearch':
-  java_install => true,
-  manage_repo  => true,
-  repo_version => '5.x',
+  include logstash
+  include kibana
 }
