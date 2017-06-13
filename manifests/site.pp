@@ -1,10 +1,10 @@
 node 'node-puppet1' {
-  include stdlib
-  include yum
-  include java
+#include stdlib
+#include yum
+#include java
 #include elasticsearch
 #include logstash
-  include nginx
+#include nginx
 #include kibana
 
   $myconfig =  @("MYCONFIG"/L)
