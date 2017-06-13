@@ -4,5 +4,6 @@ node 'node-puppet1' {
   include java
   include elasticsearch
   include logstash
+  include nginx
   include kibana
 }
