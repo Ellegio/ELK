@@ -20,17 +20,12 @@ node 'master-puppet' {
 }
 
 node 'node-puppet1' {
-#include stdlib
-#include yum
-#include java
-#include elasticsearch
-#include logstash
-#include nginx
-#include kibana
-
   $myconfig =  @("MYCONFIG"/L)
 input {
   beats {
+    ssl => true
+    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder.crt"
+    ssl_key => "/etc/pki/tls/private/logstash-forwarder.key"
     port => 5044
   }
 }
