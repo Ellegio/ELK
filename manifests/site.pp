@@ -39,8 +39,8 @@ output {
   }
   stdout { codec => rubydebug }
 }
-
 | MYCONFIG
+
   class { 'elasticsearch':
     java_install => true,
     manage_repo  => true,
@@ -56,7 +56,7 @@ output {
 
   class { 'logstash':
     settings => {
-      'http.host' => 'node-puppet',
+      'http.host' => '0.0.0.0',
     }
   }
 
