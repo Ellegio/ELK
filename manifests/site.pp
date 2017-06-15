@@ -51,12 +51,14 @@ output {
   logstash::plugin { 'logstash-input-beats': }
 
   class { 'kibana' :
-    config => {
+      config => {
       'server.host'       => 'localhost',
       'elasticsearch.url' => 'http://localhost:9200',
-      'server.port'       => '5044',
+      'server.port'       => '5601',
     }
   }
+
+  class { 'nginx' :  }
 
   class { 'filebeat':
     outputs => {
