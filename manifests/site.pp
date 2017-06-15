@@ -1,3 +1,24 @@
+node 'master-puppet' {
+  class { 'filebeat':
+    outputs => {
+      'logstash' => {
+        'hosts' => [
+          'node-puppet:5044',
+        ],
+        'index' => 'filebeat',
+      },
+    },
+  }
+
+  filebeat::prospector { 'syslogs':
+    paths    => [
+      '/var/log/auth.log',
+      '/var/log/syslog',
+    ],
+    doc_type => 'syslog-beat',
+  }
+}
+
 node 'node-puppet1' {
 #include stdlib
 #include yum
@@ -40,7 +61,7 @@ output {
 
   class { 'logstash':
     settings => {
-      'http.host' => 'localhost',
+      'http.host' => 'node-puppet',
     }
   }
 
@@ -60,23 +81,10 @@ output {
 
   class { 'nginx' :  }
 
-  class { 'filebeat':
-    outputs => {
-      'logstash' => {
-        'hosts' => [
-          'localhost:5044',
-        ],
-        'index' => 'filebeat',
-      },
-    },
-  }
-
-  filebeat::prospector { 'syslogs':
-    paths    => [
-      '/var/log/auth.log',
-      '/var/log/syslog',
-    ],
-    doc_type => 'syslog-beat',
+  file { /etc/nginx/sites-available/kibana
+    require => 'nginx'
+    mode => 0644
+    source => "puppet:///files/default"
   }
 
 }
