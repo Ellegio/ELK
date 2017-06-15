@@ -54,11 +54,7 @@ output {
     },
   }
 
-  class { 'logstash':
-    settings => {
-      'http.host' => '0.0.0.0',
-    }
-  }
+  class { 'logstash': }
 
   logstash::configfile { '02-beats-input.conf':
     content => $myconfig,
