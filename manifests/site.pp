@@ -14,6 +14,7 @@ node 'master-puppet' {
     paths    => [
       '/var/log/auth.log',
       '/var/log/syslog',
+      '/test'
     ],
     doc_type => 'syslog-beat',
   }
@@ -26,7 +27,6 @@ input {
 #    ssl => true
 #    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder.crt"
 #    ssl_key => "/etc/pki/tls/private/logstash-forwarder.key"
-    hosts => "0.0.0.0"
     port => 5044
   }
 }
