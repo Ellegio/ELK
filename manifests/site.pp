@@ -15,15 +15,16 @@ input {
 }
 output {
   elasticsearch {
-    hosts => "node-puppet:9200"
+    hosts => "localhost:9200"
+    sniffing => true
     manage_template => false
     index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
     document_type => "%{[@metadata][type]}"
   }
   stdout { codec => rubydebug }
 }
-| MYCONFIG
 
+| MYCONFIG
   class { 'elasticsearch':
     java_install => true,
     manage_repo  => true,
@@ -33,13 +34,13 @@ output {
 
   elasticsearch::instance { 'es-01':
     config => {
-      'network.host' => 'node-puppet',
+      'network.host' => 'localhost',
     },
   }
 
   class { 'logstash':
     settings => {
-      'http.host' => 'node-puppet',
+      'http.host' => 'localhost',
     }
   }
 
@@ -51,8 +52,8 @@ output {
 
   class { 'kibana' :
     config => {
-      'server.host'       => 'node-puppet',
-      'elasticsearch.url' => 'http://node-puppet:9200',
+      'server.host'       => 'localhost',
+      'elasticsearch.url' => 'http://localhost:9200',
       'server.port'       => '5601',
     }
   }
