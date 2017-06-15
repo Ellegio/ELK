@@ -10,7 +10,7 @@ node 'node-puppet1' {
   $myconfig =  @("MYCONFIG"/L)
 input {
   beats {
-    port => 5043
+    port => 5044
   }
 }
 output {
@@ -54,7 +54,7 @@ output {
     config => {
       'server.host'       => 'localhost',
       'elasticsearch.url' => 'http://localhost:9200',
-      'server.port'       => '5601',
+      'server.port'       => '5044',
     }
   }
 
@@ -62,7 +62,7 @@ output {
     outputs => {
       'logstash' => {
         'hosts' => [
-          'master-puppet:5043',
+          'localhost:5044',
         ],
         'index' => 'filebeat',
       },
