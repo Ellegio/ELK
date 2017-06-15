@@ -81,10 +81,9 @@ output {
 
   class { 'nginx' :  }
 
-  file { /etc/nginx/sites-available/kibana
-    require => 'nginx'
-    mode => 0644
-    source => "puppet:///files/default"
-  }
+#  file { /etc/nginx/sites-available/kibana
+#    mode => 0644
+#    source => "puppet:///files/default"
+#  }
 
 }
