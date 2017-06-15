@@ -23,21 +23,21 @@ node 'node-puppet1' {
   $myconfig =  @("MYCONFIG"/L)
 input {
   beats {
-    ssl => true
-    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder.crt"
-    ssl_key => "/etc/pki/tls/private/logstash-forwarder.key"
+#    ssl => true
+#    ssl_certificate => "/etc/pki/tls/certs/logstash-forwarder.crt"
+#    ssl_key => "/etc/pki/tls/private/logstash-forwarder.key"
+    hosts => "0.0.0.0"
     port => 5044
   }
 }
 output {
   elasticsearch {
     hosts => "localhost:9200"
-    sniffing => true
     manage_template => false
     index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
     document_type => "%{[@metadata][type]}"
   }
-  stdout { codec => rubydebug }
+#  stdout { codec => rubydebug }
 }
 | MYCONFIG
 
